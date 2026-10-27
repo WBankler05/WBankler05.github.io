@@ -1,0 +1,94 @@
+{
+  "slug": "electric-vehicle",
+  "title": "Electric Vehicle Drivetrain",
+  "status": "featured",
+  "order": 1,
+  "tagline": "A battery-powered vehicle geared for controlled torque and a repeatable 10 ft run.",
+  "summary": "Designed and built an electric vehicle that travels 10 ft unaided. I modeled the full drivetrain in SolidWorks, soldered the electronics, and iterated the gearing to an 11.2:1 reduction.",
+  "cover": "media/projects/electric-vehicle/ev-final.jpg",
+  "tags": [
+    "SolidWorks",
+    "Drivetrain",
+    "Gear design",
+    "Soldering",
+    "Testing"
+  ],
+  "meta": {
+    "role": "Drivetrain modeling, electronics, testing",
+    "team": "Team project",
+    "tools": "SolidWorks, soldering, wood body panels",
+    "timeline": ""
+  },
+  "metrics": [
+    {
+      "value": "11.2:1",
+      "label": "final gear ratio (3:1 required)"
+    },
+    {
+      "value": "100%",
+      "label": "success rate over 10+ trials"
+    },
+    {
+      "value": "1.71 s",
+      "label": "average time to 10 ft"
+    },
+    {
+      "value": "5.8 ft/s",
+      "label": "average speed (10 ft / 1.71 s)"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The challenge",
+      "body": "Design and build an electrically powered vehicle that travels **10 ft unaided**, every time. A small DC motor spins fast but with little torque, so the core problem was choosing a gear reduction that gave the vehicle enough torque to start reliably without giving up so much speed that the run became slow or inconsistent."
+    },
+    {
+      "heading": "My role",
+      "body": "- Modeled every drivetrain component in SolidWorks and assembled them into a full drivetrain model.\n- Completed all of the soldering for the motor and power circuit.\n- Ran the vehicle test trials and drove the design iterations between them."
+    },
+    {
+      "heading": "Design process",
+      "body": "The first transmission used three gears: two driven gears and a free-spinning idler meant to keep them aligned. In testing, the idler pulled the gears out of alignment, and the binding lost so much torque to friction that the motor struggled to start.\n\nThe final drivetrain replaces the idler with a fixed intermediate shaft that runs through laser-cut holes in both side walls, so every gear sits exactly where the CAD model places it. It uses two reduction stages:\n\n- A 10-tooth motor pinion drives a 28-tooth gear (2.8:1).\n- An 8-tooth gear on the same shaft drives a 32-tooth gear on the rear axle (4:1).\n\nTogether the stages give an **11.2:1** reduction, nearly four times the required 3:1 minimum, which trades top speed for the torque needed to start from rest every time. The truck body was detailed in a SolidWorks drawing with finger-jointed wood panels so that it could be cut and assembled accurately around the drivetrain.",
+      "image": "media/projects/electric-vehicle/ev-gear-cad.jpg",
+      "image_caption": "SolidWorks model of the final gear train"
+    },
+    {
+      "heading": "Testing and results",
+      "body": "I ran more than 10 full trials of the finished vehicle over the 10 ft course. The vehicle completed **every trial (100% success)** with an **average time of 1.71 s**, which works out to an average speed of roughly 5.8 ft/s (1.8 m/s)."
+    }
+  ],
+  "gallery": [
+    {
+      "src": "media/projects/electric-vehicle/ev-cad.jpg",
+      "caption": "Full vehicle CAD rendering in SolidWorks"
+    },
+    {
+      "src": "media/projects/electric-vehicle/ev-final.jpg",
+      "caption": "Finished vehicle"
+    },
+    {
+      "src": "media/projects/electric-vehicle/ev-exploded-view.jpg",
+      "caption": "Exploded assembly view with bill of materials"
+    },
+    {
+      "src": "media/projects/electric-vehicle/ev-chassis-motor-mount.jpg",
+      "caption": "Chassis model with the motor mount bridging the side walls"
+    },
+    {
+      "src": "media/projects/electric-vehicle/ev-gear-cad.jpg",
+      "caption": "SolidWorks drivetrain assembly"
+    },
+    {
+      "src": "media/projects/electric-vehicle/ev-gear-physical.jpg",
+      "caption": "Final physical gear transmission"
+    },
+    {
+      "src": "media/projects/electric-vehicle/ev-gear-initial.jpg",
+      "caption": "First iteration of the gear transmission"
+    },
+    {
+      "src": "media/projects/electric-vehicle/ev-body-drawing.jpg",
+      "caption": "Truck body panel drawing"
+    }
+  ]
+}

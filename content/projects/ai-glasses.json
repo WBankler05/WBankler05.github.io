@@ -1,0 +1,34 @@
+{
+  "slug": "ai-glasses",
+  "title": "AI-Integrated Smart Glasses",
+  "status": "hidden",
+  "order": 6,
+  "tagline": "Hands-free, real-time feedback from a personal AI agent.",
+  "summary": "Concepting and prototyping smart glasses that connect to a personal AI agent. I modeled the preliminary frame in SolidWorks and researched the components needed for power and audio and video transmission.",
+  "cover": "media/projects/ai-glasses/glasses-cad.jpg",
+  "tags": ["SolidWorks", "Product development", "Wearables"],
+  "meta": {
+    "role": "Frame design, component research",
+    "team": "Solo",
+    "tools": "SolidWorks",
+    "timeline": "In progress"
+  },
+  "metrics": [],
+  "sections": [
+    {
+      "heading": "The idea",
+      "body": "A pair of glasses that connects to a personal AI agent and gives real-time, hands-free feedback through audio and video."
+    },
+    {
+      "heading": "Progress so far",
+      "body": "- Modeled the preliminary frame design in SolidWorks.\n- Researched the mechanical and electrical components needed to power the glasses and support audio and video transmission."
+    },
+    {
+      "heading": "Next steps",
+      "body": "Finalize component selection, integrate the electronics into the frame, and build a working prototype for user testing."
+    }
+  ],
+  "gallery": [
+    {"src": "media/projects/ai-glasses/glasses-cad.jpg", "caption": "Preliminary frame design in SolidWorks"}
+  ]
+}

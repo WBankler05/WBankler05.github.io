@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Portfolio Editor</title>
+<style>
+  :root { --bg:#f4f4f1; --panel:#fff; --ink:#14181d; --muted:#5f6874; --line:#e0ddd4; --accent:#1d4ed8; --danger:#b91c1c; --ok:#15803d; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.5 ui-sans-serif, system-ui, "Segoe UI", sans-serif; background:var(--bg); color:var(--ink); }
+  .app { display:grid; grid-template-columns:230px 1fr; min-height:100vh; }
+  aside { background:#14181d; color:#e8ebef; padding:22px 16px; position:sticky; top:0; height:100vh; }
+  aside h1 { font-size:1rem; margin:0 0 4px; }
+  aside p { color:#97a1ae; font-size:.8rem; margin:0 0 22px; }
+  aside button { display:block; width:100%; text-align:left; background:none; border:0; color:#c7cdd6; padding:9px 12px; border-radius:8px; font:inherit; cursor:pointer; }
+  aside button.on, aside button:hover { background:#252c36; color:#fff; }
+  .status { margin-top:24px; font-size:.8rem; color:#97a1ae; line-height:1.6; }
+  main { padding:28px 36px 80px; max-width:980px; }
+  h2 { margin:0 0 4px; font-size:1.5rem; }
+  .sub { color:var(--muted); margin:0 0 24px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-bottom:16px; }
+  label { display:block; font-weight:600; font-size:.85rem; margin:14px 0 6px; }
+  label small { font-weight:400; color:var(--muted); }
+  input[type=text], textarea, select { width:100%; padding:9px 11px; border:1px solid var(--line); border-radius:8px; font:inherit; background:#fff; color:var(--ink); }
+  textarea { min-height:90px; resize:vertical; }
+  textarea.big { min-height:170px; font-family:ui-monospace, Consolas, monospace; font-size:.88rem; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .btn { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:#fff; font:inherit; font-weight:600; cursor:pointer; color:var(--ink); text-decoration:none; }
+  .btn.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .btn.danger { color:var(--danger); }
+  .btn.small { padding:4px 9px; font-size:.82rem; }
+  .btn:disabled { opacity:.5; cursor:default; }
+  .bar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:18px 0; }
+  .sticky-bar { position:sticky; bottom:0; background:var(--bg); padding:12px 0; border-top:1px solid var(--line); margin-top:24px; }
+  .rep-item { border:1px solid var(--line); border-radius:10px; padding:12px 14px 14px; margin:10px 0; background:#fbfbf9; }
+  .rep-head { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .rep-head strong { font-size:.85rem; color:var(--muted); }
+  .img-field { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  .img-field img { width:110px; height:74px; object-fit:cover; border-radius:6px; border:1px solid var(--line); background:#eee; }
+  .img-field select { flex:1; min-width:200px; }
+  .plist { display:flex; flex-direction:column; gap:8px; }
+  .pitem { display:flex; align-items:center; gap:12px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
+  .pitem img { width:72px; height:48px; object-fit:cover; border-radius:6px; }
+  .pitem .grow { flex:1; }
+  .pill { font-size:.72rem; font-weight:700; padding:2px 8px; border-radius:99px; background:#e3eafc; color:var(--accent); text-transform:uppercase; }
+  .pill.in-progress { background:#fdf3d7; color:#a16207; } .pill.hidden { background:#eee; color:#666; }
+  pre.log { background:#14181d; color:#d7dde4; padding:14px; border-radius:10px; white-space:pre-wrap; font-size:.82rem; max-height:360px; overflow:auto; }
+  .toast { position:fixed; right:20px; bottom:20px; padding:12px 16px; border-radius:10px; background:#14181d; color:#fff; box-shadow:0 8px 24px rgba(0,0,0,.2); display:none; max-width:420px; }
+  .toast.err { background:var(--danger); }
+  .hint { font-size:.8rem; color:var(--muted); margin:6px 0 0; }
+  .ok { color:var(--ok); } .bad { color:var(--danger); }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <h1>Portfolio Editor</h1>
+    <p>Runs only on this computer.</p>
+    <nav id="nav"></nav>
+    <div class="status" id="status"></div>
+  </aside>
+  <main id="main"><p>Loading…</p></main>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+"use strict";
+// ---------------------------------------------------------------- token + api
+const hashToken = new URLSearchParams(location.hash.slice(1)).get("t");
+if (hashToken) { sessionStorage.setItem("pe-token", hashToken); history.replaceState(null, "", location.pathname); }
+const TOKEN = sessionStorage.getItem("pe-token") || "";
+
+async function api(path, body) {
+  const opts = { headers: { "X-Token": TOKEN, "Content-Type": "application/json" } };
+  if (body !== undefined) { opts.method = "POST"; opts.body = JSON.stringify(body); }
+  const r = await fetch(path, opts);
+  const data = await r.json().catch(() => ({ error: "Unexpected response" }));
+  if (!r.ok) throw new Error(data.error || r.statusText);
+  return data;
+}
+function toast(msg, err) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.className = "toast" + (err ? " err" : ""); t.style.display = "block";
+  clearTimeout(toast.timer); toast.timer = setTimeout(() => t.style.display = "none", err ? 7000 : 2600);
+}
+function readFile(file) {
+  return new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(file); });
+}
+function el(tag, attrs = {}, ...kids) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else if (k === "class") n.className = v;
+    else if (v !== undefined && v !== null && v !== false) n.setAttribute(k, v === true ? "" : v);
+  }
+  for (const kid of kids.flat()) if (kid !== null && kid !== undefined) n.append(kid.nodeType ? kid : String(kid));
+  return n;
+}
+const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const clone = o => JSON.parse(JSON.stringify(o));
+
+let STATE = null;
+let VIEW = "projects";
+
+// ---------------------------------------------------------------- schema-driven forms
+// field types: text, textarea, big, comma (array as comma list), lines (array, one per line),
+// select, image, repeater
+function field(obj, f, ctx) {
+  const wrap = el("div");
+  const lab = el("label", {}, f.label, f.help ? el("small", {}, "  " + f.help) : null);
+  wrap.append(lab);
+  const val = obj[f.key];
+  if (f.type === "text" || !f.type) {
+    wrap.append(el("input", { type: "text", value: val ?? "", oninput: e => obj[f.key] = e.target.value }));
+  } else if (f.type === "textarea" || f.type === "big") {
+    const ta = el("textarea", { class: f.type === "big" ? "big" : "", oninput: e => obj[f.key] = e.target.value });
+    ta.value = val ?? ""; wrap.append(ta);
+  } else if (f.type === "comma") {
+    wrap.append(el("input", { type: "text", value: (val || []).join(", "),
+      oninput: e => obj[f.key] = e.target.value.split(",").map(s => s.trim()).filter(Boolean) }));
+  } else if (f.type === "lines") {
+    const ta = el("textarea", { oninput: e => obj[f.key] = e.target.value.split("\n").map(s => s.trim()).filter(Boolean) });
+    ta.value = (val || []).join("\n"); wrap.append(ta);
+  } else if (f.type === "select") {
+    const s = el("select", { onchange: e => obj[f.key] = e.target.value },
+      f.options.map(([v, t]) => el("option", { value: v, selected: v === val }, t)));
+    wrap.append(s);
+  } else if (f.type === "image") {
+    wrap.append(imageField(obj, f.key, ctx));
+  } else if (f.type === "repeater") {
+    if (!Array.isArray(obj[f.key])) obj[f.key] = [];
+    wrap.append(repeater(obj[f.key], f, ctx));
+  }
+  if (f.hint) wrap.append(el("p", { class: "hint" }, f.hint));
+  return wrap;
+}
+function form(obj, fields, ctx) {
+  return el("div", {}, fields.map(f => Array.isArray(f) ? el("div", { class: "row" }, f.map(g => field(obj, g, ctx))) : field(obj, f, ctx)));
+}
+function repeater(arr, f, ctx) {
+  const box = el("div");
+  const draw = () => {
+    box.replaceChildren();
+    arr.forEach((item, i) => {
+      const head = el("div", { class: "rep-head" }, el("strong", {}, `${f.itemLabel || "Item"} ${i + 1}`),
+        el("span", {},
+          el("button", { class: "btn small", type: "button", disabled: i === 0, onclick: () => { [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]]; draw(); } }, "↑"), " ",
+          el("button", { class: "btn small", type: "button", disabled: i === arr.length - 1, onclick: () => { [arr[i + 1], arr[i]] = [arr[i], arr[i + 1]]; draw(); } }, "↓"), " ",
+          el("button", { class: "btn small danger", type: "button", onclick: () => { if (confirm("Remove this " + (f.itemLabel || "item").toLowerCase() + "?")) { arr.splice(i, 1); draw(); } } }, "Remove")));
+      box.append(el("div", { class: "rep-item" }, head, form(item, f.fields, ctx)));
+    });
+    box.append(el("button", { class: "btn small", type: "button", onclick: () => { arr.push(clone(f.blank)); draw(); } }, "+ Add " + (f.itemLabel || "item").toLowerCase()));
+  };
+  draw();
+  return box;
+}
+function imageField(obj, key, ctx) {
+  const box = el("div", { class: "img-field" });
+  const draw = () => {
+    const folder = ctx.folder();
+    const prefix = folder === "profile" ? "media/profile/" : `media/projects/${folder}/`;
+    const options = STATE.media.filter(m => /\.(jpe?g|png|webp)$/i.test(m) && (m.startsWith(prefix) || m === obj[key]));
+    const img = el("img", { src: obj[key] ? "/" + obj[key] : "", alt: "" });
+    const sel = el("select", { onchange: e => { obj[key] = e.target.value; draw(); } },
+      el("option", { value: "" }, "(none)"), options.map(m => el("option", { value: m, selected: m === obj[key] }, m.split("/").pop())));
+    const file = el("input", { type: "file", accept: "image/*", hidden: true, onchange: async e => {
+      const f = e.target.files[0]; if (!f) return;
+      if (!folder) return toast("Give the project a slug first, then upload images.", true);
+      try {
+        toast("Uploading and stripping photo metadata…");
+        const r = await api("/api/upload", { folder, filename: f.name, data: await readFile(f) });
+        STATE.media.push(r.path); obj[key] = r.path; draw(); toast("Image added (location data removed).");
+      } catch (err) { toast(err.message, true); }
+    } });
+    box.replaceChildren(img, sel, file, el("button", { class: "btn small", type: "button", onclick: () => file.click() }, "Upload new"));
+  };
+  draw();
+  return box;
+}
+
+// ---------------------------------------------------------------- schemas
+const PROFILE_FIELDS = [
+  [{ key: "name", label: "Name" }, { key: "graduation", label: "Graduation", help: "e.g. Expected May 2028" }],
+  { key: "degree", label: "Degree(s)" },
+  { key: "university", label: "University" },
+  { key: "headline", label: "Headline (optional)", help: "one line under your degree; leave empty to hide" },
+  { key: "intro", label: "Mission statement", type: "textarea", help: "one sentence near the top; leave empty to hide" },
+  { key: "seeking", label: "What you're seeking", help: "e.g. Seeking Summer 2027 engineering internships" },
+  { key: "focus_areas", label: "Focus areas", type: "comma", help: "comma separated" },
+  { key: "headshot", label: "Headshot (next to your name)", type: "image" },
+  { key: "highlights", label: "Highlight stats", type: "repeater", itemLabel: "Stat", blank: { value: "", label: "" },
+    fields: [[{ key: "value", label: "Value", help: "e.g. 4.00" }, { key: "label", label: "Label" }]] },
+];
+const CONTACT_FIELDS = [
+  { key: "email", label: "Email" },
+  { key: "linkedin", label: "LinkedIn URL" },
+];
+const EXPERIENCE_FIELDS = [
+  { key: "skills", label: "Skill groups", type: "repeater", itemLabel: "Group", blank: { group: "", items: [] },
+    fields: [{ key: "group", label: "Group name" }, { key: "items", label: "Skills", type: "lines", help: "one per line" }] },
+  { key: "experience", label: "Experience", type: "repeater", itemLabel: "Role", blank: { title: "", org: "", place: "", dates: "", points: [] },
+    fields: [[{ key: "title", label: "Title" }, { key: "org", label: "Organization" }], [{ key: "place", label: "Location" }, { key: "dates", label: "Dates" }],
+             { key: "points", label: "Bullet points", type: "lines", help: "one per line" }] },
+  { key: "leadership", label: "Leadership", type: "repeater", itemLabel: "Position", blank: { title: "", org: "", dates: "", detail: "" },
+    fields: [[{ key: "title", label: "Title" }, { key: "org", label: "Organization" }], { key: "dates", label: "Dates" }, { key: "detail", label: "Detail", type: "textarea" }] },
+  { key: "coursework", label: "Relevant coursework", type: "lines", help: "one per line" },
+  { key: "affiliations", label: "Affiliations", type: "comma", help: "comma separated" },
+];
+const PROJECT_FIELDS = [
+  [{ key: "title", label: "Title" }, { key: "status", label: "Status", type: "select",
+     options: [["featured", "Featured (full case study)"], ["in-progress", "In progress (smaller card)"], ["hidden", "Hidden (not published)"]] }],
+  { key: "tagline", label: "Tagline", help: "one line under the title" },
+  { key: "summary", label: "Card summary", type: "textarea", help: "2 to 3 sentences" },
+  { key: "cover", label: "Cover image", type: "image" },
+  { key: "tags", label: "Tags", type: "comma", help: "comma separated; first 4 show on the card" },
+  { key: "metrics", label: "Key numbers", type: "repeater", itemLabel: "Number", blank: { value: "", label: "" },
+    fields: [[{ key: "value", label: "Value", help: "e.g. 246.8 lb" }, { key: "label", label: "What it measures" }]],
+    hint: "The first number also appears on the homepage card." },
+  { key: "sections", label: "Case study sections", type: "repeater", itemLabel: "Section", blank: { heading: "", body: "" },
+    fields: [{ key: "heading", label: "Heading", help: "e.g. The challenge, My role, Design process, Analysis, Testing and results" },
+             { key: "body", label: "Text", type: "big", help: "blank line = new paragraph · lines starting with '- ' = bullets · **bold**" },
+             { key: "image", label: "Optional figure", type: "image" }, { key: "image_caption", label: "Figure caption" }] },
+  { key: "gallery", label: "Gallery", type: "repeater", itemLabel: "Image", blank: { src: "", caption: "" },
+    fields: [{ key: "src", label: "Image", type: "image" }, { key: "caption", label: "Caption" }] },
+];
+
+// ---------------------------------------------------------------- views
+const VIEWS = {
+  projects: ["Projects", viewProjects],
+  profile: ["Profile and homepage", viewProfile],
+  experience: ["Skills and experience", viewExperience],
+  resume: ["Resume", viewResume],
+  publish: ["Preview and publish", viewPublish],
+};
+function nav() {
+  document.getElementById("nav").replaceChildren(...Object.entries(VIEWS).map(([k, [label]]) =>
+    el("button", { class: VIEW === k ? "on" : "", onclick: () => { VIEW = k; render(); } }, label)));
+  const g = STATE.git;
+  document.getElementById("status").replaceChildren(
+    el("div", {}, g.remote ? "GitHub: connected" : "GitHub: not connected yet"),
+    el("div", {}, `${g.changes} unpublished change${g.changes === 1 ? "" : "s"}`));
+}
+async function reload() { STATE = await api("/api/state"); }
+async function render() {
+  nav();
+  document.getElementById("main").replaceChildren(VIEWS[VIEW][1]());
+  window.scrollTo(0, 0);
+}
+
+function viewProjects() {
+  const list = el("div", { class: "plist" });
+  const order = STATE.projects.map(p => p.slug);
+  const move = async (i, d) => { [order[i], order[i + d]] = [order[i + d], order[i]]; await api("/api/reorder", { order }); await reload(); render(); };
+  STATE.projects.forEach((p, i) => list.append(el("div", { class: "pitem" },
+    el("img", { src: p.cover ? "/" + p.cover : "", alt: "" }),
+    el("div", { class: "grow" }, el("strong", {}, p.title), " ", el("span", { class: "pill " + p.status }, p.status), el("div", { class: "hint" }, p.tagline || "")),
+    el("button", { class: "btn small", disabled: i === 0, onclick: () => move(i, -1) }, "↑"),
+    el("button", { class: "btn small", disabled: i === STATE.projects.length - 1, onclick: () => move(i, 1) }, "↓"),
+    el("button", { class: "btn small", onclick: () => editProject(p) }, "Edit"))));
+  return el("div", {},
+    el("h2", {}, "Projects"), el("p", { class: "sub" }, "Order here is the order on the site. Featured projects get full case-study pages."),
+    el("div", { class: "bar" }, el("button", { class: "btn primary", onclick: () => editProject(null) }, "+ New project")),
+    list);
+}
+function editProject(p) {
+  const isNew = !p;
+  const data = p ? clone(p) : { slug: "", title: "", status: "featured", order: STATE.projects.length + 1, tagline: "", summary: "", cover: "",
+    tags: [], meta: { role: "", team: "", tools: "", timeline: "" }, metrics: [],
+    sections: [{ heading: "The challenge", body: "" }, { heading: "My role", body: "" }, { heading: "Design process", body: "" }, { heading: "Testing and results", body: "" }],
+    gallery: [] };
+  data.meta = data.meta || {};
+  const oldSlug = p ? p.slug : null;
+  const ctx = { folder: () => data.slug };
+  const slugInput = el("input", { type: "text", value: data.slug, oninput: e => { data.slug = slugify(e.target.value); } });
+  const main = document.getElementById("main");
+  const chart = el("textarea", { class: "big" }); chart.value = data.chart ? JSON.stringify(data.chart, null, 2) : "";
+  main.replaceChildren(el("div", {},
+    el("h2", {}, isNew ? "New project" : data.title),
+    el("p", { class: "sub" }, el("a", { href: "#", onclick: e => { e.preventDefault(); render(); } }, "← All projects")),
+    el("div", { class: "card" },
+      el("label", {}, "Slug ", el("small", {}, " web address and image folder, e.g. robot-arm. Set this before uploading images.")), slugInput,
+      form(data, PROJECT_FIELDS.slice(0, 5), ctx)),
+    el("div", { class: "card" }, el("strong", {}, "Project details"),
+      form(data.meta, [[{ key: "role", label: "My role" }, { key: "team", label: "Team" }], [{ key: "tools", label: "Tools" }, { key: "timeline", label: "Timeline" }]], ctx)),
+    el("div", { class: "card" }, form(data, PROJECT_FIELDS.slice(5, 6), ctx)),
+    el("div", { class: "card" }, form(data, PROJECT_FIELDS.slice(6, 7), ctx)),
+    el("div", { class: "card" }, form(data, PROJECT_FIELDS.slice(7), ctx)),
+    el("div", { class: "card" }, el("label", {}, "Results chart (advanced, optional) ", el("small", {}, " JSON; leave empty for none")), chart),
+    el("div", { class: "bar sticky-bar" },
+      el("button", { class: "btn primary", onclick: async () => {
+        if (!slugInput.value && data.title) data.slug = slugify(data.title);
+        try { data.chart = chart.value.trim() ? JSON.parse(chart.value) : undefined; } catch { return toast("The chart box is not valid JSON.", true); }
+        if (!data.chart) delete data.chart;
+        try { await api("/api/project", { project: data, old_slug: oldSlug }); await reload(); toast("Project saved."); render(); }
+        catch (err) { toast(err.message, true); }
+      } }, "Save project"),
+      el("button", { class: "btn", onclick: () => render() }, "Cancel"),
+      isNew ? null : el("button", { class: "btn danger", onclick: async () => {
+        if (!confirm(`Delete "${data.title}"? Its images stay in the media folder. Tip: set the status to Hidden instead if you may want it back.`)) return;
+        await api("/api/project/delete", { slug: oldSlug }); await reload(); toast("Project deleted."); render();
+      } }, "Delete"))));
+  window.scrollTo(0, 0);
+}
+function siteEditor(title, sub, build) {
+  const data = clone(STATE.site);
+  return el("div", {}, el("h2", {}, title), el("p", { class: "sub" }, sub), build(data),
+    el("div", { class: "bar sticky-bar" }, el("button", { class: "btn primary", onclick: async () => {
+      try { await api("/api/site", { site: data }); await reload(); toast("Saved."); nav(); } catch (err) { toast(err.message, true); }
+    } }, "Save")));
+}
+function viewProfile() {
+  return siteEditor("Profile and homepage", "Everything in the homepage introduction.", data => {
+    const ctx = { folder: () => "profile" };
+    return el("div", {}, el("div", { class: "card" }, form(data, PROFILE_FIELDS, ctx)),
+      el("div", { class: "card" }, el("strong", {}, "Contact"), form(data.contact, CONTACT_FIELDS, ctx),
+        el("p", { class: "hint" }, "Your phone number is intentionally never shown on the site.")));
+  });
+}
+function viewExperience() {
+  return siteEditor("Skills and experience", "Section 02 of the homepage.", data => el("div", { class: "card" }, form(data, EXPERIENCE_FIELDS, {})));
+}
+function viewResume() {
+  const out = el("pre", { class: "log", hidden: true });
+  const file = el("input", { type: "file", accept: "application/pdf" });
+  return el("div", {}, el("h2", {}, "Resume"),
+    el("p", { class: "sub" }, "Upload your normal resume PDF. A web copy is made with your phone number and city removed and the file's hidden metadata wiped. Your original file is not changed."),
+    el("div", { class: "card" },
+      STATE.resume ? el("p", {}, "Current web copy: ", el("a", { href: "/" + STATE.resume, target: "_blank" }, "open PDF")) : el("p", { class: "bad" }, "No resume uploaded yet."),
+      file, " ",
+      el("button", { class: "btn primary", onclick: async () => {
+        const f = file.files[0]; if (!f) return toast("Choose a PDF first.", true);
+        try { const r = await api("/api/resume", { data: await readFile(f) }); out.hidden = false; out.textContent = r.report.join("\n"); await reload(); nav(); toast("Resume updated."); }
+        catch (err) { toast(err.message, true); }
+      } }, "Upload resume")),
+    out);
+}
+function viewPublish() {
+  const log = el("pre", { class: "log", hidden: true });
+  const msg = el("input", { type: "text", placeholder: "What changed? e.g. Added robot arm project" });
+  const show = text => { log.hidden = false; log.textContent = text; };
+  return el("div", {}, el("h2", {}, "Preview and publish"),
+    el("p", { class: "sub" }, "Build runs the privacy check (phone numbers, photo location data, unexpected files). Publishing is blocked if it finds anything."),
+    el("div", { class: "card" }, el("strong", {}, "1. Preview"),
+      el("div", { class: "bar" }, el("button", { class: "btn", onclick: async () => {
+        const r = await api("/api/build", {});
+        if (r.ok) { show("Build OK. Privacy check passed."); window.open("/preview/index.html", "_blank"); }
+        else show("Privacy check found problems:\n" + r.problems.join("\n"));
+      } }, "Build and open preview"))),
+    el("div", { class: "card" }, el("strong", {}, "2. Publish"),
+      el("label", {}, "Change note"), msg,
+      el("div", { class: "bar" }, el("button", { class: "btn primary", onclick: async e => {
+        e.target.disabled = true; show("Publishing…");
+        try { const r = await api("/api/publish", { message: msg.value }); show(r.log); await reload(); nav(); toast(r.ok ? "Done." : "Publish did not finish; see the log.", !r.ok); }
+        catch (err) { show(err.message); } finally { e.target.disabled = false; }
+      } }, "Publish to the web"))),
+    log);
+}
+
+(async () => {
+  try { await reload(); render(); }
+  catch (err) { document.getElementById("main").replaceChildren(el("p", { class: "bad" }, err.message)); }
+})();
+</script>
+</body>
+</html>

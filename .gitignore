@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+# originals never go in the repo; only cleaned copies under media/
+originals/
+*.docx
+*.heic
+.DS_Store
+Thumbs.db

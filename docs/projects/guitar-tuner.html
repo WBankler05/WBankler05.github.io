@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Digital Guitar Tuner | William Bankler</title>
+<meta name="description" content="Built a LabVIEW virtual instrument that samples a guitar through an NI DAQ, finds the fundamental with an FFT, and classifies each string as flat, in tune, or sharp. Average accuracy was 93.9% across all six strings.">
+<meta property="og:title" content="Digital Guitar Tuner | William Bankler"><meta property="og:description" content="Built a LabVIEW virtual instrument that samples a guitar through an NI DAQ, finds the fundamental with an FFT, and classifies each string as flat, in tune, or sharp. Average accuracy was 93.9% across all six strings."><meta property="og:type" content="website"><meta property="og:image" content="https://wbankler05.github.io/media/projects/guitar-tuner/tuner-front-panel.jpg">
+<link rel="icon" href="../static/favicon.svg?v=afdff88c2d" type="image/svg+xml">
+<link rel="stylesheet" href="../static/style.css?v=dbd80b9063">
+<script src="../static/site.js?v=0c40fa672f" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">WB</span>William Bankler</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../index.html#projects" aria-current="page">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#contact">Contact</a>
+      <a class="btn btn-small" href="../media/resume/William-Bankler-Resume.pdf?v=e7cdd687d5" download>Resume</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<article class="case">
+  <header class="case-head">
+    <div class="wrap">
+      <p class="crumb"><a href="../index.html#projects">Projects</a> <span aria-hidden="true">/</span> Digital Guitar Tuner</p>
+      
+      <h1>Digital Guitar Tuner</h1>
+      <p class="lede">Live frequency detection for all six strings with LabVIEW, an FFT, and a DAQ.</p>
+      <p class="case-summary">Built a LabVIEW virtual instrument that samples a guitar through an NI DAQ, finds the fundamental with an FFT, and classifies each string as flat, in tune, or sharp. Average accuracy was 93.9% across all six strings.</p>
+      <dl class="meta"><div><dt>Role</dt><dd>FFT development, DAQ integration, data analysis</dd></div><div><dt>Team</dt><dd>Team project</dd></div><div><dt>Tools</dt><dd>LabVIEW, NI USB-6341 DAQ, Excel</dd></div></dl>
+      <div class="stats stats-case"><div class="stat"><strong>93.9%</strong><span>average accuracy, six strings</span></div><div class="stat"><strong>4096</strong><span>samples per second</span></div><div class="stat"><strong>180</strong><span>tuning trials, 30 per string</span></div><div class="stat"><strong>90%</strong><span>lowest string (low E)</span></div></div>
+    </div>
+  </header>
+  <div class="wrap">
+    <figure class="case-cover"><img src="../media/projects/guitar-tuner/tuner-front-panel.jpg?v=2bf422ad11" alt="Digital Guitar Tuner"></figure>
+    <div class="case-body">
+      <aside class="toc" aria-label="On this page"><p class="eyebrow">On this page</p><ol><li><a href="#the-challenge">The challenge</a></li><li><a href="#my-role">My role</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#testing-and-results">Testing and results</a></li><li><a href="#gallery">Gallery</a></li></ol></aside>
+      <div class="prose"><section id="the-challenge" class="cs-section"><h2>The challenge</h2><p>Create a virtual instrument that measures the frequency of a plucked guitar string in real time and filters it into the known frequency range for each of the six strings, then tells the player whether the string is flat, in tune, or sharp.</p></section><section id="my-role" class="cs-section"><h2>My role</h2><ul><li>Developed and tuned the Fast Fourier Transform processing at a sampling frequency of <strong>4096 samples/s</strong>.</li><li>Integrated the NI USB-6341 DAQ for live frequency acquisition.</li><li>Ran the accuracy trials and analyzed the data.</li></ul></section><section id="how-it-works" class="cs-section"><h2>How it works</h2><p>The signal chain was first built and tuned against a simulated sine wave so that each stage could be checked against a known answer. The live signal from the DAQ is passed through a Hanning window to reduce spectral leakage, transformed with an FFT, and the peak bin is converted back to a frequency by multiplying by the sampling frequency and dividing by the number of FFT points. That frequency is compared against a lookup array of ranges for each string, which drives the Low, Flat, In-Tune, Sharp, and High indicators on the front panel.</p><figure class="cs-figure"><button type="button" class="shot-btn" data-full="../media/projects/guitar-tuner/tuner-fft-block.jpg?v=b7b7c11933" data-caption="Signal chain: simulated input, Hanning window, FFT, and conversion from bin index to frequency"><img src="../media/projects/guitar-tuner/tuner-fft-block.jpg?v=b7b7c11933" alt="Signal chain: simulated input, Hanning window, FFT, and conversion from bin index to frequency" loading="lazy"></button><figcaption>Signal chain: simulated input, Hanning window, FFT, and conversion from bin index to frequency</figcaption></figure></section><section id="testing-and-results" class="cs-section"><h2>Testing and results</h2><p>Each string was tested in <strong>30 trials, 180 in total</strong>. In every trial, one of us tuned the string using only our LabVIEW tuner for five seconds, and the result was then checked against a commercial tuning app as a pass or fail.</p>
+<p>Across all six strings, the tuner reached an <strong>average accuracy of 93.9%</strong>. The least accurate string was the low E at <strong>90%</strong>. I attribute that to second harmonic interference: the low E fundamental sits near 82 Hz, and its second harmonic near 165 Hz can carry enough energy to be picked as the peak, which reads as the wrong note.</p></section><figure class="chart">
+  <figcaption>Tuning accuracy by string</figcaption>
+  <svg viewBox="0 0 640 316" role="img" aria-label="Tuning accuracy by string: E2 90, A2 93.3, D3 93.3, G3 96.7, B3 96.7, E4 93.3">
+    <line x1="56.0" x2="56.0" y1="20" y2="296" class="c-grid"/><text x="56.0" y="312" class="c-tick" text-anchor="middle">85%</text><line x1="229.3" x2="229.3" y1="20" y2="296" class="c-grid"/><text x="229.3" y="312" class="c-tick" text-anchor="middle">90%</text><line x1="402.7" x2="402.7" y1="20" y2="296" class="c-grid"/><text x="402.7" y="312" class="c-tick" text-anchor="middle">95%</text><line x1="576.0" x2="576.0" y1="20" y2="296" class="c-grid"/><text x="576.0" y="312" class="c-tick" text-anchor="middle">100%</text><line x1="364.0" x2="364.0" y1="20" y2="296" class="c-avg"/><text x="364.0" y="14" class="c-avg-label" text-anchor="middle">average 93.9%</text><text x="44" y="54.0" class="c-label" text-anchor="end">E2</text><line x1="56" x2="576" y1="50.0" y2="50.0" class="c-track"/><circle cx="229.3" cy="50.0" r="7" class="c-dot"/><text x="243.3" y="54.0" class="c-val">90%</text><text x="44" y="98.0" class="c-label" text-anchor="end">A2</text><line x1="56" x2="576" y1="94.0" y2="94.0" class="c-track"/><circle cx="343.7" cy="94.0" r="7" class="c-dot"/><text x="357.7" y="98.0" class="c-val">93.3%</text><text x="44" y="142.0" class="c-label" text-anchor="end">D3</text><line x1="56" x2="576" y1="138.0" y2="138.0" class="c-track"/><circle cx="343.7" cy="138.0" r="7" class="c-dot"/><text x="357.7" y="142.0" class="c-val">93.3%</text><text x="44" y="186.0" class="c-label" text-anchor="end">G3</text><line x1="56" x2="576" y1="182.0" y2="182.0" class="c-track"/><circle cx="461.6" cy="182.0" r="7" class="c-dot"/><text x="475.6" y="186.0" class="c-val">96.7%</text><text x="44" y="230.0" class="c-label" text-anchor="end">B3</text><line x1="56" x2="576" y1="226.0" y2="226.0" class="c-track"/><circle cx="461.6" cy="226.0" r="7" class="c-dot"/><text x="475.6" y="230.0" class="c-val">96.7%</text><text x="44" y="274.0" class="c-label" text-anchor="end">E4</text><line x1="56" x2="576" y1="270.0" y2="270.0" class="c-track"/><circle cx="343.7" cy="270.0" r="7" class="c-dot"/><text x="357.7" y="274.0" class="c-val">93.3%</text>
+  </svg>
+</figure></div>
+    </div>
+    <section id="gallery" class="gallery-wrap">
+      <h2>Gallery</h2>
+      <div class="gallery"><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/guitar-tuner/tuner-front-panel.jpg?v=2bf422ad11" data-caption="LabVIEW tuner front panel">
+    <img src="../media/projects/guitar-tuner/tuner-front-panel.jpg?v=2bf422ad11" alt="LabVIEW tuner front panel" loading="lazy">
+  </button>
+  <figcaption>LabVIEW tuner front panel</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/guitar-tuner/tuner-block-diagram.jpg?v=cc76871997" data-caption="LabVIEW tuner block diagram">
+    <img src="../media/projects/guitar-tuner/tuner-block-diagram.jpg?v=cc76871997" alt="LabVIEW tuner block diagram" loading="lazy">
+  </button>
+  <figcaption>LabVIEW tuner block diagram</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/guitar-tuner/tuner-fft-panel.jpg?v=1be9a63773" data-caption="Front panel used to tune the FFT stages on a simulated signal">
+    <img src="../media/projects/guitar-tuner/tuner-fft-panel.jpg?v=1be9a63773" alt="Front panel used to tune the FFT stages on a simulated signal" loading="lazy">
+  </button>
+  <figcaption>Front panel used to tune the FFT stages on a simulated signal</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/guitar-tuner/tuner-fft-block.jpg?v=b7b7c11933" data-caption="Block diagram of the FFT tuning chain">
+    <img src="../media/projects/guitar-tuner/tuner-fft-block.jpg?v=b7b7c11933" alt="Block diagram of the FFT tuning chain" loading="lazy">
+  </button>
+  <figcaption>Block diagram of the FFT tuning chain</figcaption>
+</figure></div>
+    </section>
+    <nav class="prevnext" aria-label="More projects"><a class="pn pn-prev" href="steel-truss.html"><span class="muted small">Previous project</span><strong>Welded Steel Truss</strong></a><a class="pn pn-next" href="shower-shield.html"><span class="muted small">Next project</span><strong>Adaptive Shower Shield</strong></a></nav>
+  </div>
+</article>
+
+</main>
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p class="fine">© 2026 William Bankler</p>
+    <ul class="footer-links">
+      <li><a class="js-email " data-u="william.d.bankler" data-d="vanderbilt.edu" href="../index.html#contact">william.d.bankler [at] vanderbilt.edu</a></li>
+      <li><a href="https://www.linkedin.com/in/william-bankler" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+      <li><a href="../media/resume/William-Bankler-Resume.pdf?v=e7cdd687d5" download>Resume</a></li>
+    </ul>
+  </div>
+</footer>
+<dialog class="lightbox" aria-label="Image viewer">
+  <button class="lightbox-close" type="button" aria-label="Close">×</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+</dialog>
+</body>
+</html>

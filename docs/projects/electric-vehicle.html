@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Electric Vehicle Drivetrain | William Bankler</title>
+<meta name="description" content="Designed and built an electric vehicle that travels 10 ft unaided. I modeled the full drivetrain in SolidWorks, soldered the electronics, and iterated the gearing to an 11.2:1 reduction.">
+<meta property="og:title" content="Electric Vehicle Drivetrain | William Bankler"><meta property="og:description" content="Designed and built an electric vehicle that travels 10 ft unaided. I modeled the full drivetrain in SolidWorks, soldered the electronics, and iterated the gearing to an 11.2:1 reduction."><meta property="og:type" content="website"><meta property="og:image" content="https://wbankler05.github.io/media/projects/electric-vehicle/ev-final.jpg">
+<link rel="icon" href="../static/favicon.svg?v=afdff88c2d" type="image/svg+xml">
+<link rel="stylesheet" href="../static/style.css?v=dbd80b9063">
+<script src="../static/site.js?v=0c40fa672f" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">WB</span>William Bankler</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../index.html#projects" aria-current="page">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#contact">Contact</a>
+      <a class="btn btn-small" href="../media/resume/William-Bankler-Resume.pdf?v=e7cdd687d5" download>Resume</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<article class="case">
+  <header class="case-head">
+    <div class="wrap">
+      <p class="crumb"><a href="../index.html#projects">Projects</a> <span aria-hidden="true">/</span> Electric Vehicle Drivetrain</p>
+      
+      <h1>Electric Vehicle Drivetrain</h1>
+      <p class="lede">A battery-powered vehicle geared for controlled torque and a repeatable 10 ft run.</p>
+      <p class="case-summary">Designed and built an electric vehicle that travels 10 ft unaided. I modeled the full drivetrain in SolidWorks, soldered the electronics, and iterated the gearing to an 11.2:1 reduction.</p>
+      <dl class="meta"><div><dt>Role</dt><dd>Drivetrain modeling, electronics, testing</dd></div><div><dt>Team</dt><dd>Team project</dd></div><div><dt>Tools</dt><dd>SolidWorks, soldering, wood body panels</dd></div></dl>
+      <div class="stats stats-case"><div class="stat"><strong>11.2:1</strong><span>final gear ratio (3:1 required)</span></div><div class="stat"><strong>100%</strong><span>success rate over 10+ trials</span></div><div class="stat"><strong>1.71 s</strong><span>average time to 10 ft</span></div><div class="stat"><strong>5.8 ft/s</strong><span>average speed (10 ft / 1.71 s)</span></div></div>
+    </div>
+  </header>
+  <div class="wrap">
+    <figure class="case-cover"><img src="../media/projects/electric-vehicle/ev-final.jpg?v=8b756af70c" alt="Electric Vehicle Drivetrain"></figure>
+    <div class="case-body">
+      <aside class="toc" aria-label="On this page"><p class="eyebrow">On this page</p><ol><li><a href="#the-challenge">The challenge</a></li><li><a href="#my-role">My role</a></li><li><a href="#design-process">Design process</a></li><li><a href="#testing-and-results">Testing and results</a></li><li><a href="#gallery">Gallery</a></li></ol></aside>
+      <div class="prose"><section id="the-challenge" class="cs-section"><h2>The challenge</h2><p>Design and build an electrically powered vehicle that travels <strong>10 ft unaided</strong>, every time. A small DC motor spins fast but with little torque, so the core problem was choosing a gear reduction that gave the vehicle enough torque to start reliably without giving up so much speed that the run became slow or inconsistent.</p></section><section id="my-role" class="cs-section"><h2>My role</h2><ul><li>Modeled every drivetrain component in SolidWorks and assembled them into a full drivetrain model.</li><li>Completed all of the soldering for the motor and power circuit.</li><li>Ran the vehicle test trials and drove the design iterations between them.</li></ul></section><section id="design-process" class="cs-section"><h2>Design process</h2><p>The first transmission used three gears: two driven gears and a free-spinning idler meant to keep them aligned. In testing, the idler pulled the gears out of alignment, and the binding lost so much torque to friction that the motor struggled to start.</p>
+<p>The final drivetrain replaces the idler with a fixed intermediate shaft that runs through laser-cut holes in both side walls, so every gear sits exactly where the CAD model places it. It uses two reduction stages:</p>
+<ul><li>A 10-tooth motor pinion drives a 28-tooth gear (2.8:1).</li><li>An 8-tooth gear on the same shaft drives a 32-tooth gear on the rear axle (4:1).</li></ul>
+<p>Together the stages give an <strong>11.2:1</strong> reduction, nearly four times the required 3:1 minimum, which trades top speed for the torque needed to start from rest every time. The truck body was detailed in a SolidWorks drawing with finger-jointed wood panels so that it could be cut and assembled accurately around the drivetrain.</p><figure class="cs-figure"><button type="button" class="shot-btn" data-full="../media/projects/electric-vehicle/ev-gear-cad.jpg?v=31c2f67fb6" data-caption="SolidWorks model of the final gear train"><img src="../media/projects/electric-vehicle/ev-gear-cad.jpg?v=31c2f67fb6" alt="SolidWorks model of the final gear train" loading="lazy"></button><figcaption>SolidWorks model of the final gear train</figcaption></figure></section><section id="testing-and-results" class="cs-section"><h2>Testing and results</h2><p>I ran more than 10 full trials of the finished vehicle over the 10 ft course. The vehicle completed <strong>every trial (100% success)</strong> with an <strong>average time of 1.71 s</strong>, which works out to an average speed of roughly 5.8 ft/s (1.8 m/s).</p></section></div>
+    </div>
+    <section id="gallery" class="gallery-wrap">
+      <h2>Gallery</h2>
+      <div class="gallery"><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/electric-vehicle/ev-cad.jpg?v=f22ec04a63" data-caption="Full vehicle CAD rendering in SolidWorks">
+    <img src="../media/projects/electric-vehicle/ev-cad.jpg?v=f22ec04a63" alt="Full vehicle CAD rendering in SolidWorks" loading="lazy">
+  </button>
+  <figcaption>Full vehicle CAD rendering in SolidWorks</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/electric-vehicle/ev-final.jpg?v=8b756af70c" data-caption="Finished vehicle">
+    <img src="../media/projects/electric-vehicle/ev-final.jpg?v=8b756af70c" alt="Finished vehicle" loading="lazy">
+  </button>
+  <figcaption>Finished vehicle</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/electric-vehicle/ev-exploded-view.jpg?v=58676f8e12" data-caption="Exploded assembly view with bill of materials">
+    <img src="../media/projects/electric-vehicle/ev-exploded-view.jpg?v=58676f8e12" alt="Exploded assembly view with bill of materials" loading="lazy">
+  </button>
+  <figcaption>Exploded assembly view with bill of materials</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/electric-vehicle/ev-chassis-motor-mount.jpg?v=e2c325e0b9" data-caption="Chassis model with the motor mount bridging the side walls">
+    <img src="../media/projects/electric-vehicle/ev-chassis-motor-mount.jpg?v=e2c325e0b9" alt="Chassis model with the motor mount bridging the side walls" loading="lazy">
+  </button>
+  <figcaption>Chassis model with the motor mount bridging the side walls</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/electric-vehicle/ev-gear-cad.jpg?v=31c2f67fb6" data-caption="SolidWorks drivetrain assembly">
+    <img src="../media/projects/electric-vehicle/ev-gear-cad.jpg?v=31c2f67fb6" alt="SolidWorks drivetrain assembly" loading="lazy">
+  </button>
+  <figcaption>SolidWorks drivetrain assembly</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/electric-vehicle/ev-gear-physical.jpg?v=0ac8ec51f5" data-caption="Final physical gear transmission">
+    <img src="../media/projects/electric-vehicle/ev-gear-physical.jpg?v=0ac8ec51f5" alt="Final physical gear transmission" loading="lazy">
+  </button>
+  <figcaption>Final physical gear transmission</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/electric-vehicle/ev-gear-initial.jpg?v=913a8fa804" data-caption="First iteration of the gear transmission">
+    <img src="../media/projects/electric-vehicle/ev-gear-initial.jpg?v=913a8fa804" alt="First iteration of the gear transmission" loading="lazy">
+  </button>
+  <figcaption>First iteration of the gear transmission</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/electric-vehicle/ev-body-drawing.jpg?v=e46c943cf8" data-caption="Truck body panel drawing">
+    <img src="../media/projects/electric-vehicle/ev-body-drawing.jpg?v=e46c943cf8" alt="Truck body panel drawing" loading="lazy">
+  </button>
+  <figcaption>Truck body panel drawing</figcaption>
+</figure></div>
+    </section>
+    <nav class="prevnext" aria-label="More projects"><span></span><a class="pn pn-next" href="steel-truss.html"><span class="muted small">Next project</span><strong>Welded Steel Truss</strong></a></nav>
+  </div>
+</article>
+
+</main>
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p class="fine">© 2026 William Bankler</p>
+    <ul class="footer-links">
+      <li><a class="js-email " data-u="william.d.bankler" data-d="vanderbilt.edu" href="../index.html#contact">william.d.bankler [at] vanderbilt.edu</a></li>
+      <li><a href="https://www.linkedin.com/in/william-bankler" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+      <li><a href="../media/resume/William-Bankler-Resume.pdf?v=e7cdd687d5" download>Resume</a></li>
+    </ul>
+  </div>
+</footer>
+<dialog class="lightbox" aria-label="Image viewer">
+  <button class="lightbox-close" type="button" aria-label="Close">×</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+</dialog>
+</body>
+</html>

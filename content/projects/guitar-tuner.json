@@ -1,0 +1,109 @@
+{
+  "slug": "guitar-tuner",
+  "title": "Digital Guitar Tuner",
+  "status": "featured",
+  "order": 3,
+  "tagline": "Live frequency detection for all six strings with LabVIEW, an FFT, and a DAQ.",
+  "summary": "Built a LabVIEW virtual instrument that samples a guitar through an NI DAQ, finds the fundamental with an FFT, and classifies each string as flat, in tune, or sharp. Average accuracy was 93.9% across all six strings.",
+  "cover": "media/projects/guitar-tuner/tuner-front-panel.jpg",
+  "tags": [
+    "LabVIEW",
+    "FFT",
+    "Data acquisition",
+    "Signal processing"
+  ],
+  "meta": {
+    "role": "FFT development, DAQ integration, data analysis",
+    "team": "Team project",
+    "tools": "LabVIEW, NI USB-6341 DAQ, Excel",
+    "timeline": ""
+  },
+  "metrics": [
+    {
+      "value": "93.9%",
+      "label": "average accuracy, six strings"
+    },
+    {
+      "value": "4096",
+      "label": "samples per second"
+    },
+    {
+      "value": "180",
+      "label": "tuning trials, 30 per string"
+    },
+    {
+      "value": "90%",
+      "label": "lowest string (low E)"
+    }
+  ],
+  "chart": {
+    "title": "Tuning accuracy by string",
+    "unit": "%",
+    "min": 85,
+    "max": 100,
+    "bars": [
+      {
+        "label": "E2",
+        "value": 90.0
+      },
+      {
+        "label": "A2",
+        "value": 93.3
+      },
+      {
+        "label": "D3",
+        "value": 93.3
+      },
+      {
+        "label": "G3",
+        "value": 96.7
+      },
+      {
+        "label": "B3",
+        "value": 96.7
+      },
+      {
+        "label": "E4",
+        "value": 93.3
+      }
+    ]
+  },
+  "sections": [
+    {
+      "heading": "The challenge",
+      "body": "Create a virtual instrument that measures the frequency of a plucked guitar string in real time and filters it into the known frequency range for each of the six strings, then tells the player whether the string is flat, in tune, or sharp."
+    },
+    {
+      "heading": "My role",
+      "body": "- Developed and tuned the Fast Fourier Transform processing at a sampling frequency of **4096 samples/s**.\n- Integrated the NI USB-6341 DAQ for live frequency acquisition.\n- Ran the accuracy trials and analyzed the data."
+    },
+    {
+      "heading": "How it works",
+      "body": "The signal chain was first built and tuned against a simulated sine wave so that each stage could be checked against a known answer. The live signal from the DAQ is passed through a Hanning window to reduce spectral leakage, transformed with an FFT, and the peak bin is converted back to a frequency by multiplying by the sampling frequency and dividing by the number of FFT points. That frequency is compared against a lookup array of ranges for each string, which drives the Low, Flat, In-Tune, Sharp, and High indicators on the front panel.",
+      "image": "media/projects/guitar-tuner/tuner-fft-block.jpg",
+      "image_caption": "Signal chain: simulated input, Hanning window, FFT, and conversion from bin index to frequency"
+    },
+    {
+      "heading": "Testing and results",
+      "body": "Each string was tested in **30 trials, 180 in total**. In every trial, one of us tuned the string using only our LabVIEW tuner for five seconds, and the result was then checked against a commercial tuning app as a pass or fail.\n\nAcross all six strings, the tuner reached an **average accuracy of 93.9%**. The least accurate string was the low E at **90%**. I attribute that to second harmonic interference: the low E fundamental sits near 82 Hz, and its second harmonic near 165 Hz can carry enough energy to be picked as the peak, which reads as the wrong note."
+    }
+  ],
+  "gallery": [
+    {
+      "src": "media/projects/guitar-tuner/tuner-front-panel.jpg",
+      "caption": "LabVIEW tuner front panel"
+    },
+    {
+      "src": "media/projects/guitar-tuner/tuner-block-diagram.jpg",
+      "caption": "LabVIEW tuner block diagram"
+    },
+    {
+      "src": "media/projects/guitar-tuner/tuner-fft-panel.jpg",
+      "caption": "Front panel used to tune the FFT stages on a simulated signal"
+    },
+    {
+      "src": "media/projects/guitar-tuner/tuner-fft-block.jpg",
+      "caption": "Block diagram of the FFT tuning chain"
+    }
+  ]
+}

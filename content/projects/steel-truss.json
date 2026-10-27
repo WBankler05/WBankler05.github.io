@@ -1,0 +1,85 @@
+{
+  "slug": "steel-truss",
+  "title": "Welded Steel Truss",
+  "status": "featured",
+  "order": 2,
+  "tagline": "Predicting where a welded truss would fail, then loading it until it did.",
+  "summary": "Designed, MIG welded, and load-tested a steel truss as the prototype for a bridge reconnecting Nashville's Jefferson Street over I-40. It failed at 246.8 lb in the exact members and failure mode I predicted.",
+  "cover": "media/projects/steel-truss/truss-assembled.jpg",
+  "tags": [
+    "Statics",
+    "Buckling",
+    "MIG welding",
+    "Failure testing"
+  ],
+  "meta": {
+    "role": "Fabrication, structural analysis, test planning",
+    "team": "Team project",
+    "tools": "MIG welding, method of joints, Euler buckling",
+    "timeline": ""
+  },
+  "metrics": [
+    {
+      "value": "246.8 lb",
+      "label": "measured failure load"
+    },
+    {
+      "value": "228.75 lb",
+      "label": "predicted buckling load"
+    },
+    {
+      "value": "~8%",
+      "label": "measured above prediction"
+    },
+    {
+      "value": "~20x",
+      "label": "margin before yielding (4,500 lb)"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The challenge",
+      "body": "Design, build, and test a steel truss to failure, and show that the analytical prediction of how and where it fails matches what actually happens. The truss was the prototype for a bridge that would cap Interstate 40 and reconnect Nashville's Jefferson Street community, which the highway split in two.\n\nThe truss spans 4 ft in four 1 ft panels with a 1 ft depth, pinned at A and on a roller at E, with a single load **P** applied at the top center joint C."
+    },
+    {
+      "heading": "My role",
+      "body": "- Fabricated the truss by MIG welding the members to gusset plates.\n- Performed the structural analysis and calculated the yielding and buckling limits for each member.\n- Optimized the loading configuration to eliminate critical buckling failures in the weakest members."
+    },
+    {
+      "heading": "Analysis",
+      "body": "Solving the truss by the method of joints with the geometry above gives each support a reaction of P/2. Because the panels are square, the diagonals sit at 45 degrees, so:\n\n- The end diagonals (AH and EF) carry **0.707P in tension**.\n- The central diagonals (HC and CF) carry **0.707P in compression**, which makes them the members most likely to buckle.\n- The bottom chord members (HG and GF) carry **P in tension**, and the top chord carries P/2 in compression.\n- All three verticals (BH, CG, and DF) are **zero-force members** under this load case.\n\nFor each compression member I compared the load at which it would yield against its Euler buckling load, and the governing limit was buckling of a central diagonal.",
+      "image": "media/projects/steel-truss/truss-design.jpg",
+      "image_caption": "Truss geometry: four 1 ft panels, 1 ft deep, load P at joint C"
+    },
+    {
+      "heading": "Testing and results",
+      "body": "We mounted the truss in a test frame and pulled down on the center joint through an inline digital scale until it failed. The two central diagonals **buckled at 246.8 lb**, which were the exact members and failure mode the analysis predicted.\n\nThe measured load was **about 8% above the predicted 228.75 lb**. The as-built diagonals were shorter than the design length, and a shorter member resists buckling better, which accounts for the truss carrying slightly more than predicted. Yielding would not have occurred until roughly 4,500 lb, so buckling governed by a wide margin, exactly as the analysis showed."
+    }
+  ],
+  "gallery": [
+    {
+      "src": "media/projects/steel-truss/truss-assembled.jpg",
+      "caption": "Fully constructed and assembled steel truss"
+    },
+    {
+      "src": "media/projects/steel-truss/truss-load-test.jpg",
+      "caption": "Load-to-failure test"
+    },
+    {
+      "src": "media/projects/steel-truss/truss-design.jpg",
+      "caption": "Truss geometry and load case"
+    },
+    {
+      "src": "media/projects/steel-truss/truss-force-check.jpg",
+      "caption": "Member forces under a 350 lb design load, checked against my hand calculations"
+    },
+    {
+      "src": "media/projects/steel-truss/truss-construction.jpg",
+      "caption": "Truss during construction"
+    },
+    {
+      "src": "media/projects/steel-truss/truss-weld.jpg",
+      "caption": "Sample MIG weld at a gusset plate"
+    }
+  ]
+}

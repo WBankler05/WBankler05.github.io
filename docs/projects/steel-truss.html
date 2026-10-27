@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Welded Steel Truss | William Bankler</title>
+<meta name="description" content="Designed, MIG welded, and load-tested a steel truss as the prototype for a bridge reconnecting Nashville&#x27;s Jefferson Street over I-40. It failed at 246.8 lb in the exact members and failure mode I predicted.">
+<meta property="og:title" content="Welded Steel Truss | William Bankler"><meta property="og:description" content="Designed, MIG welded, and load-tested a steel truss as the prototype for a bridge reconnecting Nashville&#x27;s Jefferson Street over I-40. It failed at 246.8 lb in the exact members and failure mode I predicted."><meta property="og:type" content="website"><meta property="og:image" content="https://wbankler05.github.io/media/projects/steel-truss/truss-assembled.jpg">
+<link rel="icon" href="../static/favicon.svg?v=afdff88c2d" type="image/svg+xml">
+<link rel="stylesheet" href="../static/style.css?v=dbd80b9063">
+<script src="../static/site.js?v=0c40fa672f" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">WB</span>William Bankler</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../index.html#projects" aria-current="page">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#contact">Contact</a>
+      <a class="btn btn-small" href="../media/resume/William-Bankler-Resume.pdf?v=e7cdd687d5" download>Resume</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<article class="case">
+  <header class="case-head">
+    <div class="wrap">
+      <p class="crumb"><a href="../index.html#projects">Projects</a> <span aria-hidden="true">/</span> Welded Steel Truss</p>
+      
+      <h1>Welded Steel Truss</h1>
+      <p class="lede">Predicting where a welded truss would fail, then loading it until it did.</p>
+      <p class="case-summary">Designed, MIG welded, and load-tested a steel truss as the prototype for a bridge reconnecting Nashville&#x27;s Jefferson Street over I-40. It failed at 246.8 lb in the exact members and failure mode I predicted.</p>
+      <dl class="meta"><div><dt>Role</dt><dd>Fabrication, structural analysis, test planning</dd></div><div><dt>Team</dt><dd>Team project</dd></div><div><dt>Tools</dt><dd>MIG welding, method of joints, Euler buckling</dd></div></dl>
+      <div class="stats stats-case"><div class="stat"><strong>246.8 lb</strong><span>measured failure load</span></div><div class="stat"><strong>228.75 lb</strong><span>predicted buckling load</span></div><div class="stat"><strong>~8%</strong><span>measured above prediction</span></div><div class="stat"><strong>~20x</strong><span>margin before yielding (4,500 lb)</span></div></div>
+    </div>
+  </header>
+  <div class="wrap">
+    <figure class="case-cover"><img src="../media/projects/steel-truss/truss-assembled.jpg?v=0a36ee2962" alt="Welded Steel Truss"></figure>
+    <div class="case-body">
+      <aside class="toc" aria-label="On this page"><p class="eyebrow">On this page</p><ol><li><a href="#the-challenge">The challenge</a></li><li><a href="#my-role">My role</a></li><li><a href="#analysis">Analysis</a></li><li><a href="#testing-and-results">Testing and results</a></li><li><a href="#gallery">Gallery</a></li></ol></aside>
+      <div class="prose"><section id="the-challenge" class="cs-section"><h2>The challenge</h2><p>Design, build, and test a steel truss to failure, and show that the analytical prediction of how and where it fails matches what actually happens. The truss was the prototype for a bridge that would cap Interstate 40 and reconnect Nashville&#x27;s Jefferson Street community, which the highway split in two.</p>
+<p>The truss spans 4 ft in four 1 ft panels with a 1 ft depth, pinned at A and on a roller at E, with a single load <strong>P</strong> applied at the top center joint C.</p></section><section id="my-role" class="cs-section"><h2>My role</h2><ul><li>Fabricated the truss by MIG welding the members to gusset plates.</li><li>Performed the structural analysis and calculated the yielding and buckling limits for each member.</li><li>Optimized the loading configuration to eliminate critical buckling failures in the weakest members.</li></ul></section><section id="analysis" class="cs-section"><h2>Analysis</h2><p>Solving the truss by the method of joints with the geometry above gives each support a reaction of P/2. Because the panels are square, the diagonals sit at 45 degrees, so:</p>
+<ul><li>The end diagonals (AH and EF) carry <strong>0.707P in tension</strong>.</li><li>The central diagonals (HC and CF) carry <strong>0.707P in compression</strong>, which makes them the members most likely to buckle.</li><li>The bottom chord members (HG and GF) carry <strong>P in tension</strong>, and the top chord carries P/2 in compression.</li><li>All three verticals (BH, CG, and DF) are <strong>zero-force members</strong> under this load case.</li></ul>
+<p>For each compression member I compared the load at which it would yield against its Euler buckling load, and the governing limit was buckling of a central diagonal.</p><figure class="cs-figure"><button type="button" class="shot-btn" data-full="../media/projects/steel-truss/truss-design.jpg?v=f81a5c8c75" data-caption="Truss geometry: four 1 ft panels, 1 ft deep, load P at joint C"><img src="../media/projects/steel-truss/truss-design.jpg?v=f81a5c8c75" alt="Truss geometry: four 1 ft panels, 1 ft deep, load P at joint C" loading="lazy"></button><figcaption>Truss geometry: four 1 ft panels, 1 ft deep, load P at joint C</figcaption></figure></section><section id="testing-and-results" class="cs-section"><h2>Testing and results</h2><p>We mounted the truss in a test frame and pulled down on the center joint through an inline digital scale until it failed. The two central diagonals <strong>buckled at 246.8 lb</strong>, which were the exact members and failure mode the analysis predicted.</p>
+<p>The measured load was <strong>about 8% above the predicted 228.75 lb</strong>. The as-built diagonals were shorter than the design length, and a shorter member resists buckling better, which accounts for the truss carrying slightly more than predicted. Yielding would not have occurred until roughly 4,500 lb, so buckling governed by a wide margin, exactly as the analysis showed.</p></section></div>
+    </div>
+    <section id="gallery" class="gallery-wrap">
+      <h2>Gallery</h2>
+      <div class="gallery"><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/steel-truss/truss-assembled.jpg?v=0a36ee2962" data-caption="Fully constructed and assembled steel truss">
+    <img src="../media/projects/steel-truss/truss-assembled.jpg?v=0a36ee2962" alt="Fully constructed and assembled steel truss" loading="lazy">
+  </button>
+  <figcaption>Fully constructed and assembled steel truss</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/steel-truss/truss-load-test.jpg?v=0d1a16c458" data-caption="Load-to-failure test">
+    <img src="../media/projects/steel-truss/truss-load-test.jpg?v=0d1a16c458" alt="Load-to-failure test" loading="lazy">
+  </button>
+  <figcaption>Load-to-failure test</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/steel-truss/truss-design.jpg?v=f81a5c8c75" data-caption="Truss geometry and load case">
+    <img src="../media/projects/steel-truss/truss-design.jpg?v=f81a5c8c75" alt="Truss geometry and load case" loading="lazy">
+  </button>
+  <figcaption>Truss geometry and load case</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/steel-truss/truss-force-check.jpg?v=5b1b96c47e" data-caption="Member forces under a 350 lb design load, checked against my hand calculations">
+    <img src="../media/projects/steel-truss/truss-force-check.jpg?v=5b1b96c47e" alt="Member forces under a 350 lb design load, checked against my hand calculations" loading="lazy">
+  </button>
+  <figcaption>Member forces under a 350 lb design load, checked against my hand calculations</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/steel-truss/truss-construction.jpg?v=68b90fd4fe" data-caption="Truss during construction">
+    <img src="../media/projects/steel-truss/truss-construction.jpg?v=68b90fd4fe" alt="Truss during construction" loading="lazy">
+  </button>
+  <figcaption>Truss during construction</figcaption>
+</figure><figure class="shot">
+  <button type="button" class="shot-btn" data-full="../media/projects/steel-truss/truss-weld.jpg?v=0f08030e4c" data-caption="Sample MIG weld at a gusset plate">
+    <img src="../media/projects/steel-truss/truss-weld.jpg?v=0f08030e4c" alt="Sample MIG weld at a gusset plate" loading="lazy">
+  </button>
+  <figcaption>Sample MIG weld at a gusset plate</figcaption>
+</figure></div>
+    </section>
+    <nav class="prevnext" aria-label="More projects"><a class="pn pn-prev" href="electric-vehicle.html"><span class="muted small">Previous project</span><strong>Electric Vehicle Drivetrain</strong></a><a class="pn pn-next" href="guitar-tuner.html"><span class="muted small">Next project</span><strong>Digital Guitar Tuner</strong></a></nav>
+  </div>
+</article>
+
+</main>
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p class="fine">© 2026 William Bankler</p>
+    <ul class="footer-links">
+      <li><a class="js-email " data-u="william.d.bankler" data-d="vanderbilt.edu" href="../index.html#contact">william.d.bankler [at] vanderbilt.edu</a></li>
+      <li><a href="https://www.linkedin.com/in/william-bankler" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+      <li><a href="../media/resume/William-Bankler-Resume.pdf?v=e7cdd687d5" download>Resume</a></li>
+    </ul>
+  </div>
+</footer>
+<dialog class="lightbox" aria-label="Image viewer">
+  <button class="lightbox-close" type="button" aria-label="Close">×</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+</dialog>
+</body>
+</html>

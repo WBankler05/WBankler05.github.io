@@ -1,0 +1,4 @@
+#!/bin/sh
+# Refuse any commit that would put private data in the public repo.
+# The repo is public, so anything committed stays in its history forever.
+exec ".venv/Scripts/python.exe" tools/precommit.py

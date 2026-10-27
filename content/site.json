@@ -1,0 +1,69 @@
+{
+  "name": "William Bankler",
+  "site_url": "https://wbankler05.github.io",
+  "degree": "B.E. Mechanical Engineering, B.A. Applied Mathematics, Minor in Business",
+  "university": "Vanderbilt University",
+  "graduation": "Expected May 2028",
+  "headline": "",
+  "intro": "To combine engineering design, mathematical analysis, and business insight to build products that solve meaningful problems.",
+  "seeking": "Seeking Summer 2027 Engineering Internships",
+  "focus_areas": ["Mechanical Design", "Product Development", "Aerospace"],
+  "headshot": "media/profile/headshot.jpg",
+  "highlights": [
+    {"value": "4.00", "label": "GPA, Dean's List every term"},
+    {"value": "CSWA", "label": "Certified SolidWorks Associate"},
+    {"value": "4", "label": "projects designed, built, and tested"},
+    {"value": "B.E. + B.A.", "label": "Mechanical Engineering and Applied Math"}
+  ],
+  "skills": [
+    {"group": "Mechanical Design", "items": ["SolidWorks (CSWA Certified)", "Fusion 360", "Engineering Drawings"]},
+    {"group": "Fabrication", "items": ["MIG Welding", "Soldering", "Laser Cutting"]},
+    {"group": "Programming", "items": ["Java", "MATLAB"]},
+    {"group": "Software and Analysis", "items": ["LabVIEW", "Excel"]}
+  ],
+  "coursework": ["Mechanics of Materials", "Machine Analysis and Design", "Fluid Mechanics", "System Dynamics", "Dynamics", "Statics", "Thermodynamics", "Circuits", "Instrumentation", "Materials Science and Engineering I", "Probability and Statistics", "Advanced Linear Algebra", "Ordinary Differential Equations"],
+  "experience": [
+    {
+      "title": "Investment Analyst Intern",
+      "org": "Cockrell Interests",
+      "place": "Houston, TX",
+      "dates": "June 2026 to August 2026",
+      "points": [
+        "Led a 10-week material handling diligence project using financial modeling, expert calls, and market research.",
+        "Consolidated fragmented data into state attractiveness models, investment reporting tools, and sourcing dashboards.",
+        "Supported cross-sector investment workstreams, building financial models, comparables tables, and diligence agendas."
+      ]
+    },
+    {
+      "title": "Staff Counselor",
+      "org": "Camp Longhorn",
+      "place": "Burnet, TX",
+      "dates": "Summers 2022 to 2025",
+      "points": [
+        "Designed and led swimming instruction preparing more than 250 campers for a one-mile open-water swim.",
+        "Voted second-term favorite counselor in 2025 out of more than 50 counselors."
+      ]
+    },
+    {
+      "title": "Engineering Research Assistant",
+      "org": "St. Mary's University",
+      "place": "San Antonio, TX",
+      "dates": "August 2022 to May 2023",
+      "points": [
+        "Built CAD assemblies in virtual reality alongside engineering faculty, applying Fusion 360 to hands-on research.",
+        "Taught myself Fusion 360 through more than 40 hours of independent practice."
+      ]
+    }
+  ],
+  "leadership": [
+    {"title": "Treasurer", "org": "Kappa Alpha Order", "dates": "November 2025 to Present", "detail": "Manage and allocate a chapter budget of nearly $150,000 per semester, and developed flexible payment plans for nearly 25% of the chapter."},
+    {"title": "Maker", "org": "Tikkun Olam Makers, Vanderbilt University", "dates": "September 2025 to Present", "detail": "Design assistive devices for people with disabilities and present them at a professional conference to peers and the families we support."},
+    {"title": "Chapter President", "org": "Young Men's Service League", "dates": "August 2019 to May 2024", "detail": "Received the Heart of YMSL award and the 2024 Senior Service Award for the most service hours over four years."}
+  ],
+  "affiliations": ["ASME", "Engineers Without Borders", "Nucleate Dojo"],
+  "contact": {
+    "email": "william.d.bankler@vanderbilt.edu",
+    "linkedin": "https://www.linkedin.com/in/william-bankler",
+    "resume": "media/resume/William-Bankler-Resume.pdf"
+  }
+}

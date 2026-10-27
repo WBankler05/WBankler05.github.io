@@ -1,0 +1,63 @@
+{
+  "slug": "banklerbot",
+  "title": "BanklerBot: AI Operating System",
+  "status": "in-progress",
+  "order": 5,
+  "tagline": "A personal knowledge system wired directly into an AI agent.",
+  "summary": "Designing and building a personal AI operating system: an Obsidian knowledge vault integrated with Claude that unifies ideation, project tracking, task management, and long-term knowledge.",
+  "cover": "media/projects/banklerbot/bb-vault-graph.jpg",
+  "tags": [
+    "Systems design",
+    "Python",
+    "AI agents",
+    "Git"
+  ],
+  "meta": {
+    "role": "Sole designer and builder",
+    "team": "Solo",
+    "tools": "Obsidian, Claude, Python, Git",
+    "timeline": "2026 to present"
+  },
+  "metrics": [
+    {
+      "value": "439",
+      "label": "notes, up from about 40"
+    },
+    {
+      "value": "1,650+",
+      "label": "links between notes"
+    },
+    {
+      "value": "376",
+      "label": "notes in one connected network"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The idea",
+      "body": "BanklerBot connects one structured knowledge vault to Claude so that the same system handles capturing ideas, tracking projects and tasks, and keeping long-term knowledge."
+    },
+    {
+      "heading": "What I have built so far",
+      "body": "- Architected a PARA-based vault structure connected directly to Claude for natural-language search, summarization, and automation.\n- Built a live task dashboard.\n- Created a business ideation diligence pipeline that takes an idea from capture to a go or no-go decision.\n- Put the whole system under Git version control for a complete change history."
+    },
+    {
+      "heading": "Next steps",
+      "body": "Continue expanding the automations and the dashboard, and keep the system usable on its own without AI so that the knowledge stays durable."
+    }
+  ],
+  "gallery": [
+    {
+      "src": "media/projects/banklerbot/bb-graph-initial.jpg",
+      "caption": "Initial vault knowledge graph"
+    },
+    {
+      "src": "media/projects/banklerbot/bb-vault-graph.jpg",
+      "caption": "Vault knowledge graph, October 2026"
+    },
+    {
+      "src": "media/projects/banklerbot/bb-dashboard.jpg",
+      "caption": "Widget-based dashboard (shown with sample data)"
+    }
+  ]
+}

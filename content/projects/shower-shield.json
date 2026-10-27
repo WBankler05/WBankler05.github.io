@@ -1,0 +1,42 @@
+{
+  "slug": "shower-shield",
+  "title": "Adaptive Shower Shield",
+  "status": "featured",
+  "order": 4,
+  "tagline": "An assistive device designed with, and for, one specific user.",
+  "summary": "Through Tikkun Olam Makers, my team developed an adjustable facial shower shield for a child with autism and sensory processing disorder. I designed and iterated the thermoplastic ear guard that made it adjustable and comfortable.",
+  "cover": "media/projects/shower-shield/shield-final.jpg",
+  "tags": ["Assistive technology", "SolidWorks", "Human-centered design", "Prototyping"],
+  "meta": {
+    "role": "Ear guard design and fabrication, symposium presentation",
+    "team": "Tikkun Olam Makers team",
+    "tools": "SolidWorks, thermoplastic filament",
+    "timeline": ""
+  },
+  "metrics": [
+    {"value": "Adjustable", "label": "ear guard fit after iteration"},
+    {"value": "Positive", "label": "feedback from user and caregiver"}
+  ],
+  "sections": [
+    {
+      "heading": "The challenge",
+      "body": "Our need-knower, a child with autism and sensory processing disorder, found showering distressing because of water on the face. The goal was a facial shower shield that keeps water off the face while staying comfortable enough to actually be worn."
+    },
+    {
+      "heading": "My role",
+      "body": "- Designed the ear guard that holds the shield in place, modeled it in SolidWorks, and fabricated it from thermoplastic filament.\n- Iterated the ear guard design to make the device adjustable and more comfortable.\n- Presented the group's work at a symposium of peers, faculty, and need-knowers."
+    },
+    {
+      "heading": "Design process",
+      "body": "Because the device had exactly one user, comfort and fit mattered more than anything else. I iterated the ear guard in thermoplastic until it could be adjusted to the user's head, which made the whole device more comfortable to wear."
+    },
+    {
+      "heading": "Results",
+      "body": "The adjustable thermoplastic ear guard improved user comfort, and both the need-knower and their caregiver gave positive feedback on the final device."
+    }
+  ],
+  "gallery": [
+    {"src": "media/projects/shower-shield/shield-final.jpg", "caption": "Final shower shield design"},
+    {"src": "media/projects/shower-shield/shield-earguard-cad.jpg", "caption": "Ear guard SolidWorks model"}
+  ]
+}
